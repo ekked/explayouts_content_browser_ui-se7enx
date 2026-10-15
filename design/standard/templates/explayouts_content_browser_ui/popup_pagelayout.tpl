@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{ezini( 'RegionalSettings', 'Locale' )|explode( '-' )|first|wash}">
+<html lang="{$site.http_equiv.Content-language|wash}">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
