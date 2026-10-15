@@ -129,6 +129,10 @@ class Browser extends \Exponential\Runnable\ModuleView
 
         $Result = array();
         $Result['content'] = $tpl->fetch( 'design:explayouts_content_browser_ui/browser.tpl' );
+        // Opened from a page to pick a location (a dialog or a popup that hands the choice back by script):
+        // the browser alone, without the admin page around it.
+        if ( $returnUri === 'js' )
+            $Result['pagelayout'] = 'design:explayouts_content_browser_ui/popup_pagelayout.tpl';
         return $this->viewResult( isset( $Result ) ? $Result : null,  $Result );
 
         return $this->viewResult( isset( $Result ) ? $Result : null, null );

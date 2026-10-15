@@ -83,7 +83,7 @@
                     <td>{$item.modified}</td>
                     <td>{$item.owner_name|wash}</td>
                     <td>
-                        <a href={concat( '/content/edit/', $item.object_id )|ezurl}>{'Edit'|i18n( 'explayouts_content_browser_ui/browser' )}</a>
+                        <a href={concat( '/content/edit/', $item.object_id )|ezurl}{if eq( $return_uri, 'js' )} target="_blank"{/if}>{'Edit'|i18n( 'explayouts_content_browser_ui/browser' )}</a>
                         | <a href={concat( '/', $item.url_alias )|ezurl} target="_blank">{'View'|i18n( 'explayouts_content_browser_ui/browser' )}</a>
                     </td>
                 </tr>

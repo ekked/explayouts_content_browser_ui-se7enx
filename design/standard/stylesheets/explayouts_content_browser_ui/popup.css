@@ -1,0 +1,42 @@
+/* The content browser in a dialog or popup (popup_pagelayout.tpl). Colours follow the admin4 tokens when the
+   page is opened from admin4 and fall back to neutral values elsewhere. */
+:root {
+    --ngl-cb-bg: var(--a4-surface, #ffffff);
+    --ngl-cb-text: var(--a4-text, #1f2328);
+    --ngl-cb-muted: var(--a4-text-muted, #59636e);
+    --ngl-cb-border: var(--a4-border, #d1d9e0);
+    --ngl-cb-accent: var(--a4-accent, #c2410c);
+    --ngl-cb-row-hover: var(--a4-accent-soft, #fff1e8);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ngl-cb-bg: var(--a4-surface, #16181d);
+        --ngl-cb-text: var(--a4-text, #e6e8eb);
+        --ngl-cb-muted: var(--a4-text-muted, #9aa3ad);
+        --ngl-cb-border: var(--a4-border, #30363d);
+        --ngl-cb-accent: var(--a4-accent, #fb923c);
+        --ngl-cb-row-hover: var(--a4-accent-soft, #2b1d14);
+    }
+}
+body.ngl-cb-popup {
+    margin: 0;
+    padding: 16px;
+    background: var(--ngl-cb-bg);
+    color: var(--ngl-cb-text);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.ngl-cb-popup h2 { font-size: 1.25rem; margin: 0 0 12px; }
+.ngl-cb-popup h3 { font-size: 1rem; margin: 0 0 8px; }
+.ngl-cb-popup a { color: var(--ngl-cb-accent); }
+.ngl-cb-popup a:focus-visible, .ngl-cb-popup button:focus-visible, .ngl-cb-popup input:focus-visible {
+    outline: 2px solid var(--ngl-cb-accent);
+    outline-offset: 2px;
+}
+.ngl-cb-popup table { width: 100%; border-collapse: collapse; }
+.ngl-cb-popup th, .ngl-cb-popup td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--ngl-cb-border); }
+.ngl-cb-popup tr:hover td { background: var(--ngl-cb-row-hover); }
+.ngl-cb-popup input[type="text"], .ngl-cb-popup input[type="search"] {
+    padding: 6px 8px; border: 1px solid var(--ngl-cb-border); border-radius: 6px;
+    background: var(--ngl-cb-bg); color: var(--ngl-cb-text);
+}
+.ngl-cb-popup .content-browser-path { color: var(--ngl-cb-muted); }
