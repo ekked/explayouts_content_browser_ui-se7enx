@@ -111,9 +111,16 @@ class Browser extends \Exponential\Runnable\ModuleView
         $parentNodeId = 0;
         if ( $locationNodeId > 1 )
         {
+            // the way up only through locations the user may read (fetch() asks no policy); the tree root stays
+            // reachable, as it is the browser's start
             $currentNode = \eZContentObjectTreeNode::fetch( $locationNodeId );
-            if ( $currentNode instanceof \eZContentObjectTreeNode )
-                $parentNodeId = (int)$currentNode->attribute( 'parent_node_id' );
+            if ( $currentNode instanceof \eZContentObjectTreeNode && $currentNode->canRead() )
+            {
+                $candidate = (int)$currentNode->attribute( 'parent_node_id' );
+                $parentNode = $candidate > 1 ? \eZContentObjectTreeNode::fetch( $candidate ) : null;
+                if ( $candidate === 1 || ( $parentNode instanceof \eZContentObjectTreeNode && $parentNode->canRead() ) )
+                    $parentNodeId = $candidate;
+            }
         }
         $tpl->setVariable( 'parent_node_id', $parentNodeId );
         $tpl->setVariable( 'search', $search );
