@@ -14,9 +14,9 @@ class explayouts_content_browser_uiInfo
     public static function info()
     {
         return array( 'Name' => "Exponential Layouts Content Browser UI",
-                      'Version' => "1.0.8",
+                      'Version' => "1.0.9",
                       'Copyright' => "Copyright (C) 1998 - 2026 7x. All rights reserved.",
                       'License' => "GNU General Public License v2.0 (or any later version)",
-                      'info_url' => "https://github.com/se7enxweb/explayouts_content_browser_ui" );
+                      'Info_url' => "https://github.com/se7enxweb/explayouts_content_browser_ui" );
     }
 }
