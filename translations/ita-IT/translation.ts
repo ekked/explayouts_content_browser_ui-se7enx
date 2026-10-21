@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>The selected item could not be loaded.</source>
-        <translation>Impossibile caricare l'elemento selezionato.</translation>
+        <translation>Impossibile caricare l&apos;elemento selezionato.</translation>
     </message>
     <message>
         <source>Root</source>
