@@ -41,7 +41,9 @@ class Browser extends \Exponential\Runnable\ModuleView
         $offset = (int)$nglQuery( 'offset', 0 );
         $action = trim( $nglQuery( 'action', '' ) );
         $selectedNodeId = (int)$nglQuery( 'selected_node_id', 0 );
-        $returnUri = trim( $nglQuery( 'return_uri', '' ) );
+        // where the choice is sent: a path of this site, or js (handed back by script) - nothing else, or the
+        // browser redirected to any address the link named
+        $returnUri = self::safeReturnUri( $nglQuery( 'return_uri', '' ) );
         $field = trim( $nglQuery( 'field', '' ) );
         $limit = 25;
 
@@ -109,9 +111,16 @@ class Browser extends \Exponential\Runnable\ModuleView
         $parentNodeId = 0;
         if ( $locationNodeId > 1 )
         {
+            // the way up only through locations the user may read (fetch() asks no policy); the tree root stays
+            // reachable, as it is the browser's start
             $currentNode = \eZContentObjectTreeNode::fetch( $locationNodeId );
-            if ( $currentNode instanceof \eZContentObjectTreeNode )
-                $parentNodeId = (int)$currentNode->attribute( 'parent_node_id' );
+            if ( $currentNode instanceof \eZContentObjectTreeNode && $currentNode->canRead() )
+            {
+                $candidate = (int)$currentNode->attribute( 'parent_node_id' );
+                $parentNode = $candidate > 1 ? \eZContentObjectTreeNode::fetch( $candidate ) : null;
+                if ( $candidate === 1 || ( $parentNode instanceof \eZContentObjectTreeNode && $parentNode->canRead() ) )
+                    $parentNodeId = $candidate;
+            }
         }
         $tpl->setVariable( 'parent_node_id', $parentNodeId );
         $tpl->setVariable( 'search', $search );
@@ -129,9 +138,31 @@ class Browser extends \Exponential\Runnable\ModuleView
 
         $Result = array();
         $Result['content'] = $tpl->fetch( 'design:explayouts_content_browser_ui/browser.tpl' );
+        // the page title and the path of the administration
+        $Result['path'] = array( array( 'url' => false, 'text' => \ezpI18n::tr( 'explayouts_content_browser_ui/browser', 'Content browser' ) ) );
         return $this->viewResult( isset( $Result ) ? $Result : null,  $Result );
 
         return $this->viewResult( isset( $Result ) ? $Result : null, null );
+    }
+
+    /**
+     * The return_uri of the request when it is "js" or a path on this site (/..., not //host or /\host, no scheme,
+     * no control characters); '' otherwise.
+     *
+     * @param mixed $uri
+     * @return string
+     */
+    public static function safeReturnUri( $uri )
+    {
+        $uri = is_string( $uri ) ? trim( $uri ) : '';
+        if ( $uri === 'js' )
+            return $uri;
+        $decoded = str_replace( '&amp;', '&', $uri );
+        if ( $decoded === '' || $decoded[0] !== '/' || preg_match( '/[\x00-\x20\x7F]/', $decoded ) )
+            return '';
+        if ( isset( $decoded[1] ) && ( $decoded[1] === '/' || $decoded[1] === '\\' ) )
+            return '';
+        return $uri;
     }
 }
 
