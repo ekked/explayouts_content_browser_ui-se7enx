@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.11 (2026-10-20)
+
+- The search field has an accessible name (the translated "Search").
+
 ## 1.0.10 (2026-10-20)
 
 - The choice is sent only to a path of this site (`return_uri`) or handed back by script (`js`).
