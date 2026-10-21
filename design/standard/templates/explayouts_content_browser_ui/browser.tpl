@@ -39,7 +39,7 @@
     </p>
 
     <form method="get" action={concat( '/explayouts_content_browser_ui/browser/', $location_node_id )|ezurl}>
-        <input type="text" name="Search" value="{$search|wash}" />
+        <input type="text" name="Search" value="{$search|wash}" aria-label="{'Search'|i18n( 'explayouts_content_browser_ui/browser' )|wash}" />
         <input type="hidden" name="return_uri" value="{$return_uri|wash}" />
         <input type="hidden" name="field" value="{$field|wash}" />
         <input type="submit" value="{'Search'|i18n( 'explayouts_content_browser_ui/browser' )}" />
