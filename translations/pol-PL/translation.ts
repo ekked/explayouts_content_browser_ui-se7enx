@@ -29,11 +29,11 @@
     </message>
     <message>
         <source>Search</source>
-        <translation>Wyszukaj</translation>
+        <translation>Wyszukać</translation>
     </message>
     <message>
         <source>Search:</source>
-        <translation>Szukaj:</translation>
+        <translation>Szukać:</translation>
     </message>
     <message>
         <source>Showing %count of %total items</source>
@@ -69,7 +69,7 @@
     </message>
     <message>
         <source>Select</source>
-        <translation>Wybierz</translation>
+        <translation>Wybrać</translation>
     </message>
     <message>
         <source>container</source>
@@ -77,11 +77,11 @@
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edytuj</translation>
+        <translation>Edytować</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Wyświetl</translation>
+        <translation>Wyświetlić</translation>
     </message>
     <message>
         <source>Previous</source>
